@@ -1,0 +1,56 @@
+*{
+        margin:0;
+        border:0;
+}
+body{
+    
+    background-color: yellow;
+    display: flex;
+    gap:1em;
+    flex-direction: column;
+    
+    .display{
+        
+        border: solid 0.3em black;
+        width: 13em;
+        height: 20em;
+    }
+    .start{
+        align-self: center;
+        font-size: 2em;
+        width: 4em;
+        height: 1.5em;
+        
+    }
+    .allbuttons{
+        display: flex;
+        justify-content: center;
+        gap:5em;        
+        align-items: center;
+        .button1{
+            font-size: 3em;
+            width: 2em;
+            height: 2em;
+            background-color: aqua;
+        }
+        .buttons{
+        
+            display: flex;
+            flex-direction: column;
+
+            .move1,
+            .move4{
+                font-size: 2.5em;
+                
+            
+            }
+            .move3,
+            .move2{
+               font-size: 3em;
+               margin-right:0.5em ;
+                margin-left: 0.5em;
+            }
+        }
+    }
+    
+}
