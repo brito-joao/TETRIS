@@ -1,59 +1,75 @@
 export function loadDisplay(){
     const body = document.querySelector("body");
 
-    const display = document.createElement("canvas");
-    display.setAttribute("class","display");
-    body.appendChild(display)
+    const new_div = document.createElement("div");
+    const display = document.createElement("div");
+    const score = document.createElement("div");
+    new_div.style.display="flex";
+    new_div.style.justifyContent="center";
+    score.style.border="solid 1em rgba(131,58,180,0.4)";
+    
+    score.style.width="5em"
+    let pixels = [];
+    //create rows and then insert the pixels like 2d array
+    
+    for (var i = 0; i<23; i++){
+        
+        console.log(i)
+        pixels.push([]);
+        const new_row = document.createElement("div");
+        new_row.setAttribute("class","row");
+        new_row.style.display="flex";
+        
+        for(var b = 0; b<13; b++){
+            const pixel = document.createElement("div");
+            pixel.style.height="1em";
+            pixel.style.width="1em";
+            pixel.style.border="solid 0.1em black";
+            pixel.style.backgroundColor="white";
+            pixel.setAttribute("class","pixel");
+            pixels[pixels.length-1].push(pixel);
+            new_row.appendChild(pixel)
+        }
+        display.appendChild(new_row);
+        display.style.border="solid 1em blue";
+        display.style.maxHeight="29em";
+        display.style.maxWidth="14.3em";
+    }
+    console.log(pixels)
+
+    //display.setAttribute("class","display");
+    new_div.appendChild(display);
+    new_div.appendChild(score);
+    body.appendChild(new_div)
+
+    return pixels;
 }
 
 export function loadButtons(){
     const body = document.querySelector("body");
 
-    const div = document.createElement("div");
+    
 
-    const button1 = document.createElement("button");
+    
     
     const start = document.createElement("button");
     
-    const second_div = document.createElement("button");
-
-    const buttons = ["🡹","🡸","🡺","🡻"]
-    for(var i = 0; i<4; i++){
-        const button = document.createElement("button");
-        console.log(i==1 || i==2)
-        if(i==1 || i==2){
-            second_div.appendChild(button);
-            if(i==2){
-                div.appendChild(second_div);
-                console.log("hello world")
-            }
-            button.setAttribute("class",`move${i+1}`);
-        }else{
-            button.setAttribute("class",`move${i+1}`);
-            div.appendChild(button);
-        }
-        
-        
-        button.innerText=`${buttons[i]}`;
-        
-    }
     
 
-    button1.setAttribute("class","button1");
+    
+    
+
+    
     start.setAttribute("class","start");
-    div.setAttribute("class","buttons");
+    
     start.innerText="PLAY"
-    button1.innerText="🗘";
-
-    const other_div = document.createElement("div");
-    other_div.setAttribute("class","allbuttons")
-    other_div.appendChild(button1);
-    other_div.appendChild(div);
+    
+    
     body.appendChild(start);
-    body.appendChild(other_div)
+    
     
 
-    console.log(div)
+    
 }
 
 export function clear(){

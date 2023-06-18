@@ -4,53 +4,38 @@
 }
 body{
     
-    background-color: yellow;
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,32,29,1) 38%, rgba(252,176,69,1) 100%);
     display: flex;
-    gap:1em;
+    
     flex-direction: column;
     
     .display{
         
-        border: solid 0.3em black;
-        width: 13em;
-        height: 20em;
+        border: solid 1.3em black;
+        .row{
+            display: flex;
+            
+        }
+        .pixel{
+            
+            width:1px;
+            height: 1px;
+
+
+            background-color: blue;
+
+        }
     }
     .start{
         align-self: center;
+        margin-top: 0.4em;
+        border-radius: 0.2em;
         font-size: 2em;
         width: 4em;
         height: 1.5em;
-        
+        background-color: rgba(155, 4, 255, 0.5);
     }
-    .allbuttons{
-        display: flex;
-        justify-content: center;
-        gap:5em;        
-        align-items: center;
-        .button1{
-            font-size: 3em;
-            width: 2em;
-            height: 2em;
-            background-color: aqua;
-        }
-        .buttons{
-        
-            display: flex;
-            flex-direction: column;
-
-            .move1,
-            .move4{
-                font-size: 2.5em;
-                
-            
-            }
-            .move3,
-            .move2{
-               font-size: 3em;
-               margin-right:0.5em ;
-                margin-left: 0.5em;
-            }
-        }
-    }
+    
     
 }
