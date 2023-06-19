@@ -1,6 +1,6 @@
 export function loadDisplay(){
     const body = document.querySelector("body");
-
+    
     const new_div = document.createElement("div");
     const display = document.createElement("div");
     const score = document.createElement("div");
@@ -14,7 +14,7 @@ export function loadDisplay(){
     
     for (var i = 0; i<23; i++){
         
-        console.log(i)
+        
         pixels.push([]);
         const new_row = document.createElement("div");
         new_row.setAttribute("class","row");
@@ -35,13 +35,14 @@ export function loadDisplay(){
         display.style.maxHeight="29em";
         display.style.maxWidth="14.3em";
     }
-    console.log(pixels)
-
+    
+    
     //display.setAttribute("class","display");
+    
     new_div.appendChild(display);
     new_div.appendChild(score);
     body.appendChild(new_div)
-
+    
     return pixels;
 }
 
@@ -51,7 +52,7 @@ export function loadButtons(){
     
 
     
-    
+    const working_on = document.createElement("p");
     const start = document.createElement("button");
     
     
@@ -61,10 +62,10 @@ export function loadButtons(){
 
     
     start.setAttribute("class","start");
-    
+    working_on.setAttribute("class","work") 
     start.innerText="PLAY"
-    
-    
+    working_on.innerText="Not done";
+    body.appendChild(working_on)
     body.appendChild(start);
     
     

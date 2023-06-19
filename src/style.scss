@@ -9,7 +9,10 @@ body{
     display: flex;
     
     flex-direction: column;
-    
+    .work{
+        align-self: center;
+        font-size: em;
+    }
     .display{
         
         border: solid 1.3em black;
