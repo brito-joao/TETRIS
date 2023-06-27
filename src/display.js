@@ -3,6 +3,7 @@ export function loadDisplay(){
     
     const new_div = document.createElement("div");
     const display = document.createElement("div");
+    display.setAttribute("class","display")
     const score = document.createElement("div");
     new_div.style.display="flex";
     new_div.style.justifyContent="center";
@@ -25,6 +26,17 @@ export function loadDisplay(){
             pixel.style.height="1em";
             pixel.style.width="1em";
             pixel.style.border="solid 0.1em black";
+            pixel.style.display="flex";
+            const reflexion = document.createElement("div");
+            const reflexion2 = document.createElement("div");
+            reflexion.style.width="0.83em";
+            reflexion.style.height="0.07em";
+            reflexion2.style.width="0.086em";
+            reflexion2.style.height="0.99em";
+            reflexion.style.backgroundColor="white";
+            reflexion2.style.backgroundColor="white";
+            pixel.appendChild(reflexion);
+            pixel.appendChild(reflexion2);
             pixel.style.backgroundColor="white";
             pixel.setAttribute("class","pixel");
             pixels[pixels.length-1].push(pixel);
@@ -48,6 +60,21 @@ export function loadDisplay(){
 
 export function loadButtons(){
     const body = document.querySelector("body");
+
+    
+    const gameMusic = document.getElementById('gameMusic');
+    gameMusic.src="tetris_original_copyright.mp3"
+    
+    gameMusic.play();
+
+    //gameMusic.pause();
+
+    if (!gameMusic.paused) {
+
+    }
+
+    // Adjust the volume
+    gameMusic.volume = 1; // Value between 0 and 1
 
     
 

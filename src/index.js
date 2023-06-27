@@ -7,7 +7,7 @@ require("./display");
 loadButtons()
 let pixels = loadDisplay();
 
-let interval = setInterval(()=>{if(!mainLoop(pixels)){clearInterval(interval)}},1000);
+let interval = setInterval(()=>{if(!mainLoop(pixels)){clearInterval(interval)}},10);
 
 
 
