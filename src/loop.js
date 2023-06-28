@@ -269,6 +269,7 @@ function clearRow(floor){
     });
     
     if(row_blocks.length==13){
+      
       player.score+=500;
 
       player.rows+=1;
@@ -414,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
         floor = floor.concat(current_block.getCoordinates())
 
         let random_index = Math.floor(Math.random() * block_types.length)
-        current_block =new block_types[random_index]("red",6,4);
+        current_block =new block_types[random_index]("red",6,2);
         
 
         if(clearRow(floor)){
@@ -442,6 +443,8 @@ document.addEventListener('keydown', function(event) {
 
       console.log('Up arrow key pressed');
   } else if (key === 'ArrowDown') {
+    
+      
       current_block.yposition+=1;
 
       if(floorCollision(floor,current_block)){
@@ -450,7 +453,7 @@ document.addEventListener('keydown', function(event) {
         floor = floor.concat(current_block.getCoordinates())
 
         let random_index = Math.floor(Math.random() * block_types.length)
-        current_block =new block_types[random_index]("red",6,4);
+        current_block =new block_types[random_index]("red",6,2);
         
 
         if(clearRow(floor)){
@@ -491,15 +494,44 @@ document.addEventListener('keydown', function(event) {
 
 let block_types = [Line,Square,Elle,LPigeon,RPigeon];
 let random_index = Math.floor(Math.random() * block_types.length)
-let current_block =new block_types[random_index]("red",6,4);
+let current_block =new block_types[random_index]("red",6,2);
 let floor = [];
+let number = 0.1;
+let difficulty = 0.01;
 
 export function mainLoop(pixels){
     
     //current_block.yposition+=1;
+    if(Math.round(number)<1){
+      number+=difficulty;
+      
+    }else{
+      number=0.0001;
+      
+    }
     
     
+    
+    current_block.yposition+=Math.round(number);
 
+    if(floorCollision(floor,current_block)){
+      //document.querySelector("scor").innerText=player.score;
+      
+      current_block.yposition-=1;
+      floor = floor.concat(current_block.getCoordinates())
+      if(current_block.yposition<=3){
+        floor = []
+      }
+      
+
+      let random_index = Math.floor(Math.random() * block_types.length)
+      current_block =new block_types[random_index]("red",6,2);
+      
+
+      if(clearRow(floor)){
+        current_color = Math.floor(Math.random() * colors.length)
+      };
+    }
     
 
 
