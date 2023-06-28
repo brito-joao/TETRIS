@@ -74,7 +74,7 @@ export function loadButtons(){
     }
 
     // Adjust the volume
-    gameMusic.volume = 1; // Value between 0 and 1
+    gameMusic.volume = 0; // Value between 0 and 1
 
     
 

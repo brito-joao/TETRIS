@@ -269,8 +269,6 @@ function clearRow(floor){
     });
     
     if(row_blocks.length==13){
-      console.log("ROW COMPLETED JASDFJASLDFAS GET POINTS AJADFALDKFAS")
-      console.log(floor,"before")
       player.score+=500;
 
       player.rows+=1;
@@ -289,7 +287,7 @@ function clearRow(floor){
       });
 
 
-      console.log(floor,"after");
+      
       // Shift down the remaining rows above the completed row
       
 
@@ -328,12 +326,12 @@ function floorCollision(floor,current_block){
       //find if block and floor_block are the same
       
       if(block[0]==floor_block[0] && block[1]==floor_block[1]){
-        console.log("collision");
+        
         collided = true;
       }
       
     })
-    console.log("collision");
+    
     if(block[1]>22){
       
       collided = true;
@@ -364,7 +362,7 @@ function wallCollision(current_block){
 document.addEventListener('DOMContentLoaded', function() {
   
   const element = document.querySelector('body');
-  console.log("hello worl",element)
+  
   const hammer = new Hammer(element);
   
   hammer.get("tap").set({enable: true});
@@ -374,9 +372,47 @@ document.addEventListener('DOMContentLoaded', function() {
       current_block.rotate();
   })
   
-  hammer.on("swipe", (event)=>{
-      console.log("swipe") 
-  })
+  let startX = 0;
+
+  hammer.on('swipestart', (event) => {
+    startY = event.center.y; // Store the initial Y position of the pan gesture
+  });
+
+  hammer.on('pan', (event) => {
+    const deltaX = event.center.x - startX;
+    if (deltaX > 0) {
+      //console.log('Swipe left');
+      current_block.xposition-=1;
+      if(wallCollision(current_block)){
+        
+        
+        if(floorCollision(floor,current_block)){
+          current_block.xposition+=1;
+        }
+
+      }else{
+        current_block.xposition+=1;
+      }
+      
+      
+      
+      
+
+    } else {
+      console.log('Swipe right');
+      current_block.xposition+=1;
+      if(wallCollision(current_block)){
+        
+        if(floorCollision(floor,current_block)){
+          current_block.xposition-=1;
+        }
+
+      }else{
+        current_block.xposition-=1;
+      }
+    }
+  });
+
   let startY = 0;
 
   hammer.on('panstart', (event) => {
