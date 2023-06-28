@@ -1,6 +1,7 @@
 *{
         margin:0;
         border:0;
+        touch-action: manipulation;
 }
 body{
     overscroll-behavior: contain;
