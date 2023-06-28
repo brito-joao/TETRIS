@@ -366,23 +366,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const hammer = new Hammer(element);
   
   hammer.get("tap").set({enable: true});
-  hammer.get("swipe").set({enable: true});
+  hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
   hammer.on("tap", (event)=>{
       console.log("tap") 
       current_block.rotate();
   })
   
-  let startX = 0;
 
-  hammer.on('swipestart', (event) => {
-    startY = event.center.y; // Store the initial Y position of the pan gesture
-  });
-
-  hammer.on('pan', (event) => {
-    const deltaX = event.center.x - startX;
-    if (deltaX > 0) {
-      //console.log('Swipe left');
-      current_block.xposition-=1;
+  hammer.on('swipeleft', (event) => {
+    console.log('Left swipe detected');
+    current_block.xposition-=1;
       if(wallCollision(current_block)){
         
         
@@ -393,13 +386,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }else{
         current_block.xposition+=1;
       }
-      
-      
-      
-      
-
-    } else {
-      console.log('Swipe right');
+  });
+  
+  hammer.on('swiperight', (event) => {
+    console.log('Right swipe detected');
+    console.log('Swipe right');
       current_block.xposition+=1;
       if(wallCollision(current_block)){
         
@@ -410,21 +401,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }else{
         current_block.xposition-=1;
       }
-    }
+    
   });
 
-  let startY = 0;
-
-  hammer.on('panstart', (event) => {
-    startY = event.center.y; // Store the initial Y position of the pan gesture
-  });
-
-  hammer.on('pan', (event) => {
-    const deltaY = event.center.y - startY;
-    if (deltaY > 0) {
-      console.log('Pan down');
-
-      current_block.yposition+=1;
+  hammer.on('swipedown', (event) => {
+    console.log('Swipe down detected');
+    current_block.yposition+=1;
 
       if(floorCollision(floor,current_block)){
 
@@ -439,12 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
           current_color = Math.floor(Math.random() * colors.length)
         };
       }
-
-    } else {
-      console.log('Pan up');
-    }
   });
-  
   
 });
 
