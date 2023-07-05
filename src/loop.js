@@ -499,6 +499,40 @@ let floor = [];
 let number = 0.1;
 let difficulty = 0.01;
 
+
+
+
+function displayScore(score_value){
+  let display_score;
+  if(document.querySelector(".scorev")!=null){
+    display_score = document.querySelector(".scorev");
+    display_score.innerText=`Score: \n${score_value}`;
+    
+  }else{
+    display_score = document.createElement("div");
+    
+    display_score.setAttribute("class","scorev")
+    display_score.innerText=`Score: \n${score_value}`;
+    
+  }
+  const info_display = document.querySelector(".score");
+
+  
+  display_score.style.backgroundColor="black";
+  display_score.style.width="2.5em";
+  display_score.style.paddingTop="1/2em"
+  display_score.style.height="3em";
+  display_score.style.color ="white"
+  display_score.style.fontSize="2em";
+  
+  display_score.style.textAlign="center"
+  
+  
+  
+  info_display.appendChild(display_score);
+}
+
+
 export function mainLoop(pixels){
     
     //current_block.yposition+=1;
@@ -515,7 +549,8 @@ export function mainLoop(pixels){
     current_block.yposition+=Math.round(number);
 
     if(floorCollision(floor,current_block)){
-      //document.querySelector("scor").innerText=player.score;
+      
+      
       
       current_block.yposition-=1;
       floor = floor.concat(current_block.getCoordinates())
@@ -531,6 +566,8 @@ export function mainLoop(pixels){
       if(clearRow(floor)){
         current_color = Math.floor(Math.random() * colors.length)
       };
+      displayScore(player.score);
+      console.log(player.score)
     }
     
 

@@ -7,9 +7,7 @@ export function loadDisplay(){
     const score = document.createElement("div");
     score.setAttribute("class","score")
 
-    const display_score = document.createElement("div");
-
-    display_score.setAttribute("class","scor")
+    
     new_div.style.display="flex";
     new_div.style.justifyContent="center";
     score.style.border="solid 1em rgba(131,58,180,0.4)";
@@ -55,17 +53,10 @@ export function loadDisplay(){
     
     
     //display.setAttribute("class","display");
-    display_score.style.backgroundColor="black";
-    display_score.style.width="2.5em";
-    display_score.style.paddingTop="1/2em"
-    display_score.style.height="3em";
-    display_score.style.color ="white"
-    display_score.style.fontSize="2em";
-    display_score.innerText="Score: \n100";
-    display_score.style.textAlign="center"
+    
     
     new_div.appendChild(display);
-    score.appendChild(display_score)
+    
     new_div.appendChild(score);
     body.appendChild(new_div)
     
