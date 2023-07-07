@@ -9,6 +9,17 @@ let player = {
   "rows":0,
   "level":0,
 }
+
+
+let current_color = 3; 
+let colors = [
+  "linear-gradient(45deg, rgba(231,186,1,1) 15%, rgba(0,0,0,1) 79%)",
+  "linear-gradient(45deg, rgba(250,30,85,1) 15%, rgba(0,0,0,1) 79%)",
+  "linear-gradient(45deg, rgba(135,30,250,1) 15%, rgba(0,0,0,1) 79%)",
+  "linear-gradient(45deg, rgba(30,250,111,1) 15%, rgba(0,0,0,1) 79%)",
+  "linear-gradient(45deg, rgba(231,52,1,1) 15%, rgba(0,0,0,1) 79%)",
+  
+];
 function Square(color,xposition,yposition){
   this.color = color;
   this.xposition = xposition;
@@ -24,7 +35,7 @@ function Square(color,xposition,yposition){
 Square.prototype.display= function(pixels) {
   this.rotation_matrix.forEach(row=>{
     row.forEach(pixel=>{
-      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background="linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(255,3,0,1) 79%)";
+      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background=colors[2];
       
       
     })
@@ -65,7 +76,7 @@ function Line(color,xposition,yposition){
 Line.prototype.display= function(pixels) {
   this.rotation_matrix.forEach(row=>{
     row.forEach(pixel=>{
-      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background="linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(255,3,0,1) 79%)";
+      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background=colors[1];
       
       
     })
@@ -106,7 +117,6 @@ function Elle(color,xposition,yposition){
   this.yposition = yposition;
   this.r = 0;
   this.rotation_matrix=[
-    [0,-3],
     [0,-2],
     [0,-1],
     [1,0],
@@ -116,7 +126,7 @@ function Elle(color,xposition,yposition){
 Elle.prototype.display= function(pixels) {
   this.rotation_matrix.forEach(row=>{
     row.forEach(pixel=>{
-      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background="linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(255,3,0,1) 79%)";
+      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background=colors[3];
       
       
     })
@@ -162,7 +172,8 @@ function LPigeon(color,xposition,yposition){
 LPigeon.prototype.display= function(pixels) {
   this.rotation_matrix.forEach(row=>{
     row.forEach(pixel=>{
-      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background="linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(255,3,0,1) 79%)";
+      
+      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background=colors[0];
       
       
     })
@@ -209,7 +220,7 @@ function RPigeon(color,xposition,yposition){
 RPigeon.prototype.display= function(pixels) {
   this.rotation_matrix.forEach(row=>{
     row.forEach(pixel=>{
-      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background="linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(255,3,0,1) 79%)";
+      pixels[this.yposition+row[1]][this.xposition+row[0]].style.background=colors[4];
       
       
     })
@@ -307,8 +318,7 @@ function clearScreen(pixels){
     
   });
 }
-let current_color = 0; 
-let colors = ["red","blue","green"];
+
 function displayFloor(pixels,floor){
   floor.forEach(pixel=>{
 
@@ -369,13 +379,13 @@ document.addEventListener('DOMContentLoaded', function() {
   hammer.get("tap").set({enable: true});
   hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
   hammer.on("tap", (event)=>{
-      console.log("tap") 
+      
       current_block.rotate();
   })
   
 
   hammer.on('swipeleft', (event) => {
-    console.log('Left swipe detected');
+    
     current_block.xposition-=1;
       if(wallCollision(current_block)){
         
@@ -390,8 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   hammer.on('swiperight', (event) => {
-    console.log('Right swipe detected');
-    console.log('Swipe right');
+    
       current_block.xposition+=1;
       if(wallCollision(current_block)){
         
@@ -406,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   hammer.on('swipedown', (event) => {
-    console.log('Swipe down detected');
+    
     current_block.yposition+=1;
 
       if(floorCollision(floor,current_block)){
@@ -421,6 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(clearRow(floor)){
           current_color = Math.floor(Math.random() * colors.length)
         };
+        displayScore(player.score);
       }
   });
   
@@ -437,7 +447,12 @@ document.addEventListener('keydown', function(event) {
   // Check for arrow keys
   
   if (key === 'ArrowUp') {
-      current_block.rotate();
+    
+      current_block.rotate();  
+      
+
+    
+      
       
 
 
@@ -458,9 +473,11 @@ document.addEventListener('keydown', function(event) {
 
         if(clearRow(floor)){
           current_color = Math.floor(Math.random() * colors.length)
+          
         };
+        displayScore(player.score);
       }
-      console.log('Down arrow key pressed');
+      
   } else if (key === 'ArrowLeft') {
       
       current_block.xposition-=1;
@@ -476,7 +493,7 @@ document.addEventListener('keydown', function(event) {
       }
       
       
-      console.log('Left arrow key pressed');
+      
   } else if (key === 'ArrowRight') {
       current_block.xposition+=1;
       if(wallCollision(current_block)){
@@ -501,7 +518,7 @@ let difficulty = 0.01;
 
 
 
-
+//I know this should not be here
 function displayScore(score_value){
   let display_score;
   if(document.querySelector(".scorev")!=null){
@@ -512,7 +529,7 @@ function displayScore(score_value){
     display_score = document.createElement("div");
     
     display_score.setAttribute("class","scorev")
-    display_score.innerText=`Score: \n${score_value}`;
+    display_score.innerText=`Score\n${score_value}`;
     
   }
   const info_display = document.querySelector(".score");
@@ -554,8 +571,10 @@ export function mainLoop(pixels){
       
       current_block.yposition-=1;
       floor = floor.concat(current_block.getCoordinates())
+      //end game
       if(current_block.yposition<=3){
         floor = []
+        player.score = 0;
       }
       
 
@@ -567,7 +586,7 @@ export function mainLoop(pixels){
         current_color = Math.floor(Math.random() * colors.length)
       };
       displayScore(player.score);
-      console.log(player.score)
+      
     }
     
 

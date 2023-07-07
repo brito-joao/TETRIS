@@ -1,3 +1,5 @@
+import { mainLoop } from "./loop";
+
 export function loadDisplay(){
     const body = document.querySelector("body");
     
@@ -94,9 +96,23 @@ export function loadButtons(){
 
     
     start.setAttribute("class","start");
+
+    start.addEventListener("click", ()=>{
+        let pixels = loadDisplay();
+
+        let interval = setInterval(()=>{if(!mainLoop(pixels)){clearInterval(interval)}},10);
+        const git = document.querySelector(".git");
+        const rules = document.querySelector(".rules");
+
+        rules.innerText="To Play, Just Swipe!"; 
+        git.style.marginTop="0em"
+        git.innerText=""
+
+    })
+
     working_on.setAttribute("class","work") 
     start.innerText="PLAY"
-    working_on.innerText="Not done";
+    working_on.innerText="Almost Done";
     body.appendChild(working_on)
     body.appendChild(start);
     
@@ -108,4 +124,23 @@ export function loadButtons(){
 export function clear(){
     const body = document.querySelector("body");
     body.innerHTML = "";
+}
+
+export function loadHowPlay(){
+    const body = document.querySelector("body");
+    const github = document.createElement("div");
+    const text = document.createElement("div");
+
+    text.innerText="Play the best russian game ever!";
+    text.setAttribute("class","rules");
+    text.style.textAlign="center"
+    
+    github.innerText="Made By João";
+    github.style.textAlign="center";
+    github.style.marginTop="30em";
+    github.setAttribute("class","git")
+    
+    body.appendChild(text)
+    body.appendChild(github)
+
 }
