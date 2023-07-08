@@ -32,12 +32,15 @@ export function loadDisplay(){
             pixel.style.width="1em";
             pixel.style.border="solid 0.1em black";
             pixel.style.display="flex";
+            pixel.style.touchAction="manipulation";
             const reflexion = document.createElement("div");
             const reflexion2 = document.createElement("div");
             reflexion.style.width="0.83em";
             reflexion.style.height="0.07em";
             reflexion2.style.width="0.086em";
             reflexion2.style.height="0.99em";
+            reflexion.style.touchAction="manipulation";
+            reflexion2.style.touchAction="pan-x,pan-y";
             reflexion.style.backgroundColor="white";
             reflexion2.style.backgroundColor="white";
             pixel.appendChild(reflexion);
