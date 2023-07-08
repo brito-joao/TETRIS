@@ -48,6 +48,12 @@ export function loadDisplay(){
             pixel.appendChild(reflexion2);
             pixel.style.backgroundColor="white";
             pixel.setAttribute("class","pixel");
+
+
+            pixel.addEventListener("click", event=>{
+                event.preventDefault();
+                event.stopPropagation();
+            })
             pixels[pixels.length-1].push(pixel);
             new_row.appendChild(pixel)
         }
@@ -56,6 +62,10 @@ export function loadDisplay(){
         display.style.touchAction="pan-x,pan-y";
         display.style.maxHeight="29em";
         display.style.maxWidth="14.3em";
+        display.addEventListener("click", event=>{
+            event.preventDefault();
+            event.stopPropagation();
+        })
     }
     
     
