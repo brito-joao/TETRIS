@@ -514,7 +514,7 @@ let random_index = Math.floor(Math.random() * block_types.length)
 let current_block =new block_types[random_index]("red",6,2);
 let floor = [];
 let number = 0.1;
-let difficulty = 0.01;
+let difficulty = null;
 
 
 
@@ -551,10 +551,12 @@ function displayScore(score_value){
 
 
 export function mainLoop(pixels){
-    
+    if(difficulty==null){
+      difficulty = document.querySelector(".diff").value;
+    }
     //current_block.yposition+=1;
     if(Math.round(number)<1){
-      number+=difficulty;
+      number+=difficulty/100;
       
     }else{
       number=0.0001;

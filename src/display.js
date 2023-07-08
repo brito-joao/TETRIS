@@ -82,7 +82,30 @@ export function loadDisplay(){
 
 export function loadButtons(){
     const body = document.querySelector("body");
-
+    const name = document.createElement("p");
+    
+    name.innerText="TETRIS \n CLONE";
+    const difficulty = document.createElement("input");
+    const title = document.createElement("p");
+    
+    
+    
+    name.style.textAlign="center";
+    name.style.marginTop="0.2em";
+    name.style.fontSize="2em";
+    name.style.fontWeight="bold";
+    
+    title.innerText="Difficulty:"
+    difficulty.type="range"
+    difficulty.min="1";
+    difficulty.max = "4";
+    difficulty.value="1";
+    difficulty.setAttribute("class","diff");
+    difficulty.style.marginLeft="5em";
+    difficulty.style.marginRight="5em";
+    difficulty.style.marginBottom="1em";
+    difficulty.style.marginTop="1em";
+    difficulty.style.color="black"
     
     const gameMusic = document.getElementById('gameMusic');
     gameMusic.src="tetris_original_copyright.mp3"
@@ -114,21 +137,38 @@ export function loadButtons(){
 
     start.addEventListener("click", ()=>{
         let pixels = loadDisplay();
-
+        const button = document.querySelector("button");
+        button.disabled=true;
         let interval = setInterval(()=>{if(!mainLoop(pixels)){clearInterval(interval)}},10);
         const git = document.querySelector(".git");
         const rules = document.querySelector(".rules");
 
         rules.innerText="To Play, Just Swipe!"; 
         git.style.marginTop="0em"
-        git.innerText=""
+        git.innerText="";
+        title.remove();
+        start.style.visibility="hidden"
+        working_on.style.margin="0em"
+        working_on.style.visibility="hidden";
+        working_on.remove();
+        start.remove();
+        difficulty.style.visibility="hidden";
+        difficulty.style.margin="0em"
+        
+        rules.style.margin="0em"
+
+        
+        
 
     })
 
     working_on.setAttribute("class","work") 
     start.innerText="PLAY"
     working_on.innerText="Almost Done";
+    body.appendChild(name)
     body.appendChild(working_on)
+    body.appendChild(title);
+    body.appendChild(difficulty)
     body.appendChild(start);
     
     
@@ -143,6 +183,7 @@ export function clear(){
 
 export function loadHowPlay(){
     const body = document.querySelector("body");
+    
     const github = document.createElement("div");
     const text = document.createElement("div");
 
@@ -152,7 +193,7 @@ export function loadHowPlay(){
     
     github.innerText="Made By João";
     github.style.textAlign="center";
-    github.style.marginTop="30em";
+    github.style.marginTop="20em";
     github.setAttribute("class","git")
     
     body.appendChild(text)
