@@ -9,11 +9,12 @@ export function loadDisplay(){
     const score = document.createElement("div");
     score.setAttribute("class","score")
 
-    
+    body.style.touchAction="pan-x,pan-y";
     new_div.style.display="flex";
+    new_div.style.touchAction="pan-x,pan-y";
     new_div.style.justifyContent="center";
     score.style.border="solid 1em rgba(131,58,180,0.4)";
-    
+    score.style.touchAction="pan-x,pan-y";
     score.style.width="5em"
     let pixels = [];
     //create rows and then insert the pixels like 2d array
@@ -32,14 +33,14 @@ export function loadDisplay(){
             pixel.style.width="1em";
             pixel.style.border="solid 0.1em black";
             pixel.style.display="flex";
-            pixel.style.touchAction="manipulation";
+            pixel.style.touchAction="pan-x,pan-y";
             const reflexion = document.createElement("div");
             const reflexion2 = document.createElement("div");
             reflexion.style.width="0.83em";
             reflexion.style.height="0.07em";
             reflexion2.style.width="0.086em";
             reflexion2.style.height="0.99em";
-            reflexion.style.touchAction="manipulation";
+            reflexion.style.touchAction="pan-x,pan-y";
             reflexion2.style.touchAction="pan-x,pan-y";
             reflexion.style.backgroundColor="white";
             reflexion2.style.backgroundColor="white";
@@ -52,6 +53,7 @@ export function loadDisplay(){
         }
         display.appendChild(new_row);
         display.style.border="solid 1em blue";
+        display.style.touchAction="pan-x,pan-y";
         display.style.maxHeight="29em";
         display.style.maxWidth="14.3em";
     }
