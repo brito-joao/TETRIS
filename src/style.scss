@@ -1,7 +1,10 @@
 *{
         margin:0;
         border:0;
-        touch-action: manipulation;
+}
+*{
+        touch-action:  manipulation;
+        -ms-touch-action: manipulation;
 }
 body{
     overscroll-behavior: contain;
