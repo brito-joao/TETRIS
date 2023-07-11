@@ -95,17 +95,55 @@ export function loadButtons(){
     name.style.fontSize="2em";
     name.style.fontWeight="bold";
     
-    title.innerText="Difficulty:"
+    title.innerText="Difficulty:";
+    title.style.marginTop="4em"
+    title.style.marginLeft="1em"
     difficulty.type="range"
+
+    // Styling the track
+    difficulty.style.alignSelf="center"
+    difficulty.style.appearance = 'none';
+    
+    difficulty.style.backgroundColor = '#ddd';
+    difficulty.style.borderRadius = '5px';
+
+    // Styling the thumb
+    difficulty.style.webkitAppearance = 'none';
+    difficulty.style.appearance = 'none';
+    
+    difficulty.style.backgroundColor = '#ff4081';
+    difficulty.style.borderRadius = '50%';
+    difficulty.style.cursor = 'pointer';
+    difficulty.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)';
+
+    // Styling the range value
+    difficulty.style.webkitAppearance = 'none';
+    difficulty.style.appearance = 'none';
+    difficulty.style.content = 'attr(value)';
+    
+    
+    
+    difficulty.style.transform = 'translateX(-50%)';
+    difficulty.style.backgroundColor = '#ff4081';
+    difficulty.style.color = '#fff';
+    difficulty.style.padding = '2px 6px';
+    difficulty.style.fontSize = '12px';
+    difficulty.style.borderRadius = '4px';
+    difficulty.style.whiteSpace = 'nowrap';
+
+    // Additional styles for a futuristic look
+    difficulty.style.backgroundImage = 'linear-gradient(to right, #ff4081, #ff80b3)';
+
+
     difficulty.min="1";
     difficulty.max = "4";
     difficulty.value="1";
     difficulty.setAttribute("class","diff");
-    difficulty.style.marginLeft="5em";
-    difficulty.style.marginRight="5em";
+    difficulty.style.marginLeft="11em";
+    //difficulty.style.marginRight="5em";
     difficulty.style.marginBottom="1em";
     difficulty.style.marginTop="1em";
-    difficulty.style.color="black"
+    
     
     const gameMusic = document.getElementById('gameMusic');
     gameMusic.src="tetris_original_copyright.mp3"
@@ -188,6 +226,7 @@ export function loadHowPlay(){
     const text = document.createElement("div");
 
     text.innerText="Play the best russian game ever!";
+    text.style.marginTop="1em"
     text.setAttribute("class","rules");
     text.style.textAlign="center"
     

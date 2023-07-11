@@ -26,8 +26,8 @@ function Square(color,xposition,yposition){
   this.yposition = yposition;
   this.r = 0;
   this.rotation_matrix=[
-    [1,-1],
     [0,-1],
+    [1,-1],
     [1,0],
     [0,0]
   ]
@@ -133,13 +133,32 @@ Elle.prototype.display= function(pixels) {
   })
 }
 Elle.prototype.rotate = function(){
-  this.rotation_matrix.forEach(row=>{
+  let highestY = -Infinity;
+
+  // Find the highest Y-coordinate before rotation
+  this.rotation_matrix.forEach(row => {
+    const y = row[1];
+    if (y > highestY) {
+      highestY = y;
+    }
+  });
+
+  // Perform rotation
+  this.rotation_matrix.forEach(row => {
     const theta = Math.PI / 2;
     const x = row[0];
-    const y = row[1];
+    let y = row[1];
 
-    row[0] =Math.round( x * Math.cos(theta) - y * Math.sin(theta));
+    // Subtract the highestY from the original Y-coordinate before rotation
+    y -= highestY;
+
+    row[0] = Math.round(x * Math.cos(theta) - y * Math.sin(theta));
     row[1] = Math.round(x * Math.sin(theta) + y * Math.cos(theta));
+  });
+
+  // Add the highestY back to the rotated Y-coordinate
+  this.rotation_matrix.forEach(row => {
+    row[1] += highestY;
   });
   
 }
@@ -163,9 +182,9 @@ function LPigeon(color,xposition,yposition){
   this.yposition = yposition;
   this.r = 0;
   this.rotation_matrix=[
-    [0,1],
+    [0,-1],
     [1,-1],
-    [1,0],
+    [1,-2],
     [0,0]
   ]
 }
@@ -180,17 +199,36 @@ LPigeon.prototype.display= function(pixels) {
   })
 }
 
-LPigeon.prototype.rotate = function(){
-  this.rotation_matrix.forEach(row=>{
+LPigeon.prototype.rotate = function() {
+  let highestY = -Infinity;
+
+  // Find the highest Y-coordinate before rotation
+  this.rotation_matrix.forEach(row => {
+    const y = row[1];
+    if (y > highestY) {
+      highestY = y;
+    }
+  });
+
+  // Perform rotation
+  this.rotation_matrix.forEach(row => {
     const theta = Math.PI / 2;
     const x = row[0];
-    const y = row[1];
+    let y = row[1];
+
+    // Subtract the highestY from the original Y-coordinate before rotation
+    y -= highestY;
 
     row[0] = Math.round(x * Math.cos(theta) - y * Math.sin(theta));
     row[1] = Math.round(x * Math.sin(theta) + y * Math.cos(theta));
-  })
-  
-}
+  });
+
+  // Add the highestY back to the rotated Y-coordinate
+  this.rotation_matrix.forEach(row => {
+    row[1] += highestY;
+  });
+};
+
 LPigeon.prototype.getCoordinates = function(){
   let temporary_array = [];
   
@@ -211,9 +249,9 @@ function RPigeon(color,xposition,yposition){
   this.yposition = yposition;
   this.r = 0;
   this.rotation_matrix=[
-    [1,0],
-    [-1,1],
-    [0,1],
+    [-1,-2],
+    [-1,-1],
+    [0,-1],
     [0,0]
   ]
 }
@@ -330,9 +368,12 @@ function displayFloor(pixels,floor){
 
 
 function floorCollision(floor,current_block){
+  
   let collided = false;
   let falling_blocks = current_block.getCoordinates();
+  
   falling_blocks.forEach(block=>{
+    
     floor.forEach(floor_block=>{
       //find if block and floor_block are the same
       
@@ -340,6 +381,7 @@ function floorCollision(floor,current_block){
         
         collided = true;
       }
+
       
     })
     
@@ -347,6 +389,7 @@ function floorCollision(floor,current_block){
       
       collided = true;
     }
+    
   });
   return collided
 }
@@ -358,7 +401,7 @@ function wallCollision(current_block){
     //if block is colliding with any wall it gives a true 
     
     //side walls
-    if(block[0]<0 || block[0]>=13){
+    if(block[0]<0 || block[0]==13){
       collided = true;
     }
     
@@ -367,6 +410,7 @@ function wallCollision(current_block){
   })
   return !collided;
 }
+
 
 //The swipe event listener is not my code
 
@@ -415,23 +459,33 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   hammer.on('swipedown', (event) => {
+    console.log(event.velocity)    
+    //fast swipe mechanism with velocity of swipe 
+    if(event.velocity>2){
+      
+      
+      difficulty=110;
+    }else{
+      current_block.yposition+=1;
+    }
     
-    current_block.yposition+=1;
+    
+    if(floorCollision(floor,current_block)){
 
-      if(floorCollision(floor,current_block)){
+      current_block.yposition-=1;
+      floor = floor.concat(current_block.getCoordinates())
 
-        current_block.yposition-=1;
-        floor = floor.concat(current_block.getCoordinates())
+      let random_index = Math.floor(Math.random() * block_types.length)
+      current_block =new block_types[random_index]("red",6,2);
+      
 
-        let random_index = Math.floor(Math.random() * block_types.length)
-        current_block =new block_types[random_index]("red",6,2);
-        
+      if(clearRow(floor)){
+        current_color = Math.floor(Math.random() * colors.length)
+      };
+      displayScore(player.score);
+    }
+    
 
-        if(clearRow(floor)){
-          current_color = Math.floor(Math.random() * colors.length)
-        };
-        displayScore(player.score);
-      }
   });
   
 });
@@ -456,7 +510,7 @@ document.addEventListener('keydown', function(event) {
       
 
 
-      console.log('Up arrow key pressed');
+      
   } else if (key === 'ArrowDown') {
     
       
@@ -549,7 +603,7 @@ function displayScore(score_value){
   info_display.appendChild(display_score);
 }
 
-
+let counter=0;
 export function mainLoop(pixels){
     if(difficulty==null){
       difficulty = document.querySelector(".diff").value;
@@ -567,10 +621,23 @@ export function mainLoop(pixels){
     
     current_block.yposition+=Math.round(number);
 
+
+    //implementing the fast swipe functionallity
+    if(difficulty==110){
+      if(counter>=35){
+        difficulty = document.querySelector(".diff").value;
+        counter=0;
+        
+      }
+      counter+=1;
+      
+    }
     if(floorCollision(floor,current_block)){
       
+      //also part of the fast swipe thing, so that when the row is complete the speed stops, instead of implementing harder things
+      counter=35;
       
-      
+
       current_block.yposition-=1;
       floor = floor.concat(current_block.getCoordinates())
       //end game
