@@ -201,7 +201,8 @@ export function loadButtons(){
     })
 
     working_on.setAttribute("class","work") 
-    start.innerText="PLAY"
+    start.innerText="PLAY";
+    start.style.color="white";
     working_on.innerText="Almost Done";
     body.appendChild(name)
     body.appendChild(working_on)
