@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
   hammer.on('swipedown', (event) => {
     console.log(event.velocity)    
     //fast swipe mechanism with velocity of swipe 
-    if(event.velocity>2){
+    if(event.velocity>1){
       
       
       difficulty=110;
