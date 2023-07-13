@@ -146,18 +146,16 @@ export function loadButtons(){
     
     
     const gameMusic = document.getElementById('gameMusic');
-    gameMusic.src="tetris_original_copyright.mp3"
+    gameMusic.src="snap.wav"
     
-    gameMusic.play();
+    
 
     //gameMusic.pause();
 
-    if (!gameMusic.paused) {
-
-    }
+    
 
     // Adjust the volume
-    gameMusic.volume = 0; // Value between 0 and 1
+     // Value between 0 and 1
 
     
 
@@ -239,4 +237,10 @@ export function loadHowPlay(){
     body.appendChild(text)
     body.appendChild(github)
 
+}
+
+export function playSoundEffect(){
+    
+    const audio = document.getElementById("gameMusic");
+    audio.play();
 }

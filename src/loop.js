@@ -1,7 +1,7 @@
 
 
 import Hammer from "hammerjs";
-
+import { playSoundEffect } from "./display";
 
 let active = true;
 let player = {
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
     if(floorCollision(floor,current_block)){
-
+      
       current_block.yposition-=1;
       floor = floor.concat(current_block.getCoordinates())
 
@@ -480,8 +480,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
 
       if(clearRow(floor)){
-        current_color = Math.floor(Math.random() * colors.length)
-      };
+        current_color = Math.floor(Math.random() * colors.length);
+        playSoundEffect("row");
+      }else{
+        playSoundEffect("other")
+      }
       displayScore(player.score);
     }
     
@@ -577,7 +580,7 @@ function displayScore(score_value){
   let display_score;
   if(document.querySelector(".scorev")!=null){
     display_score = document.querySelector(".scorev");
-    display_score.innerText=`Score: \n${score_value}`;
+    display_score.innerText=`Score \n${score_value}`;
     
   }else{
     display_score = document.createElement("div");
@@ -653,7 +656,10 @@ export function mainLoop(pixels){
 
       if(clearRow(floor)){
         current_color = Math.floor(Math.random() * colors.length)
-      };
+        playSoundEffect("row")
+      }else{
+        playSoundEffect("other")
+      }
       displayScore(player.score);
       
     }
